@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+pnpm exec lint-staged
+infisical scan git-changes --staged --verbose
+pnpm -r exec tsc --noEmit

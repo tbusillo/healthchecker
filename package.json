@@ -1,0 +1,47 @@
+{
+  "name": "healthchecker",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend": "pnpm --filter heatlhcheck-backend",
+    "frontend": "pnpm --filter frontend",
+    "shared": "pnpm --filter healthcheck-shared",
+    "types": "pnpm exec supabase gen types typescript --schema public --local > packages/shared/src/DatabaseTypes.ts",
+    "dev": "concurrently -m 4 -n 'frontend,backend' -p '{time}-[{name}]:' -c 'cyan,magenta' \"pnpm dev:app\" \"pnpm dev:backend\" --kill-others",
+    "dev:app": "infisical run --env=dev --path=/frontend -- pnpm frontend dev",
+    "dev:backend": "infisical run --env=dev --path=/backend -- pnpm backend dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "pnpm": {
+    "supportedArchitectures": {
+      "os": [
+        "linux",
+        "darwin"
+      ],
+      "cpu": [
+        "x64",
+        "arm64"
+      ]
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "supabase": "^2.9.6",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.22.0"
+  }
+}
