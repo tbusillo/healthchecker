@@ -28,7 +28,8 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-call': ['off'],
       '@typescript-eslint/require-await': ['warn'],
       'no-async-promise-executor': ['off'],
-      '@typescript-eslint/no-redundant-type-constituents': ['off']
+      '@typescript-eslint/no-redundant-type-constituents': ['off'],
+      'react-refresh/only-export-components': ['off']
     }
   },
   {
