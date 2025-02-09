@@ -6,3 +6,5 @@ create table
     primary key (id),
     constraint users_id_key unique (id)
   ) tablespace pg_default;
+
+ALTER TABLE public.user_settings ENABLE ROW LEVEL SECURITY;

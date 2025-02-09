@@ -6,6 +6,10 @@ import pkg from '../package.json' with { type: 'json' }
 import errorHandler from './lib/errorHandler.js'
 import requireAdminMiddleware from './middleware/requireAdmin.js'
 import requireAuthMiddleware from './middleware/requireAuth.js'
+import {
+  createOrganizationFactory,
+  getOrganizationsFactory
+} from 'routes/organizations.js'
 
 const startApp = (ctx: Context): Application => {
   const {
@@ -43,6 +47,10 @@ const startApp = (ctx: Context): Application => {
       res.json({ message: 'You are an admin!' })
     }
   )
+
+  /* Organizations */
+  app.get('/api/organizations', requireAuth, getOrganizationsFactory(ctx))
+  app.post('/api/organizations', requireAuth, createOrganizationFactory(ctx))
 
   if (environment === 'production') {
     app.get('*', (_req, res) => {
