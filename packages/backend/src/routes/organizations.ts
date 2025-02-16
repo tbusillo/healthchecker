@@ -12,7 +12,7 @@ export const getOrganizationsFactory: Route = (ctx: Context) => {
     logger.info('organizations request received')
     const { data, error } = await db
       .from('organization_users')
-      .select('organizations (id, name)')
+      .select('is_admin, organizations (id, name)')
       .eq('user_id', req.auth.id)
       .limit(1)
 

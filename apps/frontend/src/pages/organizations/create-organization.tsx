@@ -3,15 +3,19 @@ import { Strong, Text } from '../../components/catalyst/text'
 import { Input } from '../../components/catalyst/input'
 import { Divider } from '../../components/catalyst/divider'
 import { Button } from '../../components/catalyst/button'
-import { createRef, useState } from 'react'
+import { createRef, useEffect, useState } from 'react'
 import fetcher from '../../utils/fetcher'
 import { useSessionContext } from '../../contexts/session'
 import { toast } from 'sonner'
+import { useNavigate } from 'react-router-dom'
+import { useOrganizations } from '../../hooks/use-organizations'
 
 export default function Auth() {
   const { session } = useSessionContext()
+  const { data: organizations } = useOrganizations(session?.access_token)
   const [submitting, setSubmitting] = useState(false)
   const organizationName = createRef<HTMLInputElement>()
+  const navigate = useNavigate()
 
   async function handleCreateOrganization(e: React.FormEvent) {
     e.preventDefault()
@@ -30,6 +34,7 @@ export default function Auth() {
       })
 
       toast.success('Organization created successfully')
+      navigate('/organizations')
     } catch (err) {
       console.error(err)
       toast.error('An error occurred while creating the organization')
@@ -37,6 +42,12 @@ export default function Auth() {
       setSubmitting(false)
     }
   }
+
+  useEffect(() => {
+    if (organizations && organizations.length > 0) {
+      navigate('/organizations')
+    }
+  }, [organizations, navigate])
 
   return (
     <>

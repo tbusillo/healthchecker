@@ -1,6 +1,7 @@
+drop type if exists public.color_modes;
 create type public.color_modes as enum ('system', 'light', 'dark');
 
-alter table if exists public.users_settings
+alter table if exists public.user_settings
   add column if not exists first_name text null,
   add column if not exists last_name text null,
   add column if not exists email text null,

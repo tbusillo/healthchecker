@@ -8,14 +8,16 @@ export const requireAdminMiddleware: Route = (ctx: Context) => {
 
     assert(req.auth && req.auth.id, 401, 'Unauthorized')
 
-    const { data: user } = await db
-      .from('user_settings')
-      .select('is_admin')
+    const { data, error } = await db
+      .from('organization_users')
+      .select('*')
       .eq('user_id', req.auth.id)
-      .single()
+      .limit(1)
+    console.log(error)
+    assert(!error, 500, 'error fetching organizations')
+    assert(data[0].is_admin, 401, 'Unauthorized')
 
-    console.log('Is the user an admin?', user?.is_admin)
-    assert(user && user?.is_admin, 401, 'Unauthorized')
+    console.log('Is the user an admin?', data[0].is_admin)
   }
 
   return (

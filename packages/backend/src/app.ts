@@ -10,6 +10,10 @@ import {
   createOrganizationFactory,
   getOrganizationsFactory
 } from 'routes/organizations.js'
+import {
+  getUserSettingsFactory,
+  updateUserSettingsFactory
+} from 'routes/user-settings.js'
 
 const startApp = (ctx: Context): Application => {
   const {
@@ -49,8 +53,22 @@ const startApp = (ctx: Context): Application => {
   )
 
   /* Organizations */
-  app.get('/api/organizations', requireAuth, getOrganizationsFactory(ctx))
-  app.post('/api/organizations', requireAuth, createOrganizationFactory(ctx))
+  app.get(
+    '/api/organizations',
+    requireAuth,
+    requireAdmin,
+    getOrganizationsFactory(ctx)
+  )
+  app.post(
+    '/api/organizations',
+    requireAuth,
+    requireAdmin,
+    createOrganizationFactory(ctx)
+  )
+
+  /* User Settings */
+  app.get('/api/user', requireAuth, getUserSettingsFactory(ctx))
+  app.put('/api/user', requireAuth, updateUserSettingsFactory(ctx))
 
   if (environment === 'production') {
     app.get('*', (_req, res) => {

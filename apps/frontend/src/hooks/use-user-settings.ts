@@ -3,24 +3,25 @@ import fetcher from '../utils/fetcher'
 import { SWRHookResponse } from '../types'
 import invalidTokenResponse from '../utils/invalid-token'
 
-interface OrganizationsResponse {
-  organizations: {
-    id: string
-    name: string
-  }
+export interface UserSettingsResponse {
+  first_name: string
+  last_name: string
+  email: string
+  phone_number: string
+  color_mode: 'system' | 'light' | 'dark'
 }
 
-export function useOrganizations(
+export function useUserSettings(
   token: string | undefined
-): SWRHookResponse<OrganizationsResponse[]> {
+): SWRHookResponse<UserSettingsResponse> {
   const {
     data = null,
     error,
     isLoading,
     isValidating,
     mutate
-  } = useSWR<OrganizationsResponse[]>(
-    token ? ['/organizations', token] : null,
+  } = useSWR<UserSettingsResponse>(
+    token ? ['/user', token] : null,
     ([url, token]: string) => fetcher(url, token)
   )
 

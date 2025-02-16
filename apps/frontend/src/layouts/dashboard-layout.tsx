@@ -103,7 +103,9 @@ export default function DashboardLayout() {
             <Dropdown>
               <DropdownButton as={SidebarItem} className="lg:mb-2.5">
                 <Avatar initials="TB" />
-                <SidebarLabel>Tailwind Labs</SidebarLabel>
+                <SidebarLabel>
+                  {organizations?.[0].organizations.name}
+                </SidebarLabel>
                 <ChevronDownIcon />
               </DropdownButton>
               <DropdownMenu
@@ -114,24 +116,15 @@ export default function DashboardLayout() {
                   <Cog8ToothIcon />
                   <DropdownLabel>Settings</DropdownLabel>
                 </DropdownItem>
-                <DropdownDivider />
-                <DropdownItem href="/teams/1">
-                  <Avatar slot="icon" initials="TB" square />
-                  <DropdownLabel>Tailwind Labs</DropdownLabel>
-                </DropdownItem>
-                <DropdownItem href="/teams/2">
-                  <Avatar
-                    slot="icon"
-                    initials="WC"
-                    className="bg-purple-500 text-white"
-                  />
-                  <DropdownLabel>Workcation</DropdownLabel>
-                </DropdownItem>
-                <DropdownDivider />
-                <DropdownItem href="/teams/create">
-                  <PlusIcon />
-                  <DropdownLabel>New team&hellip;</DropdownLabel>
-                </DropdownItem>
+                {organizations?.length === 0 && (
+                  <>
+                    <DropdownDivider />
+                    <DropdownItem href="/teams/create">
+                      <PlusIcon />
+                      <DropdownLabel>New team&hellip;</DropdownLabel>
+                    </DropdownItem>
+                  </>
+                )}
               </DropdownMenu>
             </Dropdown>
             <SidebarSection className="max-lg:hidden">

@@ -67,19 +67,34 @@ export type Database = {
       }
       user_settings: {
         Row: {
+          color_mode: Database["public"]["Enums"]["color_modes"] | null
           created_at: string
+          email: string | null
+          first_name: string | null
           id: string
           is_admin: boolean
+          last_name: string | null
+          phone_number: string | null
         }
         Insert: {
+          color_mode?: Database["public"]["Enums"]["color_modes"] | null
           created_at?: string
+          email?: string | null
+          first_name?: string | null
           id: string
           is_admin?: boolean
+          last_name?: string | null
+          phone_number?: string | null
         }
         Update: {
+          color_mode?: Database["public"]["Enums"]["color_modes"] | null
           created_at?: string
+          email?: string | null
+          first_name?: string | null
           id?: string
           is_admin?: boolean
+          last_name?: string | null
+          phone_number?: string | null
         }
         Relationships: []
       }
@@ -91,7 +106,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      color_modes: "system" | "light" | "dark"
     }
     CompositeTypes: {
       [_ in never]: never
