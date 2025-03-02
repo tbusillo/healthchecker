@@ -1,6 +1,7 @@
 import App from './app'
 import Register from './components/auth/register'
 import Reset from './components/auth/reset'
+import ListHealthchecks from './pages/healthchecks/list-healthchecks'
 import CreateOrganization from './pages/organizations/create-organization'
 import ListOrganizations from './pages/organizations/list-organizations'
 import ListSettings from './pages/settings/list-settings'
@@ -35,6 +36,10 @@ export default [
             element: <ListOrganizations />
           }
         ]
+      },
+      {
+        path: '/healthchecks',
+        element: <ListHealthchecks />
       }
     ]
   }

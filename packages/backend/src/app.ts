@@ -14,6 +14,7 @@ import {
   getUserSettingsFactory,
   updateUserSettingsFactory
 } from 'routes/user-settings.js'
+import { getHealthchecksFactory } from 'routes/healthchecks.js'
 
 const startApp = (ctx: Context): Application => {
   const {
@@ -69,6 +70,14 @@ const startApp = (ctx: Context): Application => {
   /* User Settings */
   app.get('/api/user', requireAuth, getUserSettingsFactory(ctx))
   app.put('/api/user', requireAuth, updateUserSettingsFactory(ctx))
+
+  /* Healthchecks */
+  app.get(
+    '/api/healthchecks',
+    requireAuth,
+    requireAdmin,
+    getHealthchecksFactory(ctx)
+  )
 
   if (environment === 'production') {
     app.get('*', (_req, res) => {

@@ -9,6 +9,113 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      healthcheck_logs: {
+        Row: {
+          created_at: string
+          healthcheck_id: string
+          id: string
+          response: Json | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          healthcheck_id: string
+          id?: string
+          response?: Json | null
+          status: string
+        }
+        Update: {
+          created_at?: string
+          healthcheck_id?: string
+          id?: string
+          response?: Json | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "healthcheck_logs_healthcheck_id_fkey"
+            columns: ["healthcheck_id"]
+            isOneToOne: false
+            referencedRelation: "healthchecks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      healthchecks: {
+        Row: {
+          created_at: string
+          expected_response: Json | null
+          id: string
+          interval: number
+          name: string
+          status: string
+          timeout: number
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          expected_response?: Json | null
+          id?: string
+          interval: number
+          name: string
+          status: string
+          timeout: number
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          expected_response?: Json | null
+          id?: string
+          interval?: number
+          name?: string
+          status?: string
+          timeout?: number
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      organization_healthchecks: {
+        Row: {
+          created_at: string
+          healthcheck_id: string
+          id: string
+          organization_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          healthcheck_id: string
+          id?: string
+          organization_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          healthcheck_id?: string
+          id?: string
+          organization_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_healthchecks_healthcheck_id_fkey"
+            columns: ["healthcheck_id"]
+            isOneToOne: false
+            referencedRelation: "healthchecks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "organization_healthchecks_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       organization_users: {
         Row: {
           created_at: string

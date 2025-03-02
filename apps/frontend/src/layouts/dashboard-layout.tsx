@@ -47,10 +47,12 @@ import {
 import { supabase } from '../utils/supabaseClient'
 import { useOrganizations } from '../hooks/use-organizations'
 import { useSessionContext } from '../contexts/session'
+import { useUserSettings } from '../hooks/use-user-settings'
 
 export default function DashboardLayout() {
   const { session } = useSessionContext()
   const { data: organizations } = useOrganizations(session?.access_token)
+  const { data: settings } = useUserSettings(session?.access_token)
   const handleLogout = () =>
     supabase.auth.signOut().then(() => window.location.reload())
 
@@ -144,9 +146,9 @@ export default function DashboardLayout() {
                 <Square2StackIcon />
                 <SidebarLabel>Organizations - Create</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/orders">
+              <SidebarItem href="/healthchecks">
                 <TicketIcon />
-                <SidebarLabel>Orders</SidebarLabel>
+                <SidebarLabel>Healthchecks</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/settings">
                 <Cog6ToothIcon />
@@ -182,10 +184,15 @@ export default function DashboardLayout() {
             <Dropdown>
               <DropdownButton as={SidebarItem}>
                 <span className="flex min-w-0 items-center gap-3">
-                  <Avatar initials="TB" className="size-10" square alt="" />
+                  <Avatar
+                    initials={`${settings?.first_name.charAt(0)}${settings?.last_name.charAt(0)}`}
+                    className="size-10"
+                    square
+                    alt=""
+                  />
                   <span className="min-w-0">
                     <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
-                      Erica
+                      {settings?.first_name} {settings?.last_name}
                     </span>
                     <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
                       {session?.user.email}

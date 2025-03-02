@@ -1,10 +1,10 @@
-create type public.color_modes as enum ('system', 'light', 'dark');
+create table
+  public.user_settings (
+    id uuid not null references auth.users on delete cascade,
+    created_at timestamp with time zone not null default now(),
+    is_admin boolean not null default false,
+    primary key (id),
+    constraint users_id_key unique (id)
+  ) tablespace pg_default;
 
-alter table if exists public.users_settings
-  add column if not exists first_name text null,
-  add column if not exists last_name text null,
-  add column if not exists email text null,
-  add column if not exists phone_number text null,
-  add column if not exists color_mode public.color_modes null default 'system'::color_modes,
-  add constraint users_phone_number_key unique (phone_number),
-  add constraint users_email_key unique (email);
+ALTER TABLE public.user_settings ENABLE ROW LEVEL SECURITY;

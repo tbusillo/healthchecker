@@ -26,7 +26,6 @@ export default function Auth() {
   const phone_number = createRef<HTMLInputElement>()
   const color_mode = createRef<HTMLSelectElement>()
 
-  console.log(settings)
   async function handleUpdateSettings(e: React.FormEvent) {
     e.preventDefault()
     setSubmitting(true)
